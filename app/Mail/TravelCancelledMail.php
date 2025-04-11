@@ -35,7 +35,7 @@ class TravelCancelledMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'travel-cancelled',
+            text: 'Your travel has been cancelled.',
             with: [
                 'travel' => $this->travel,
             ],

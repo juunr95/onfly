@@ -36,7 +36,7 @@ class TravelCreatedMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.travel.created',
+            text: 'Your travel has been created successfully.',
             with: [
                 'travel' => $this->travel,
             ],
