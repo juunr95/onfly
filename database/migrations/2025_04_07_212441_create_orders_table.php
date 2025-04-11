@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignIdFor(User::class, 'requester_id')->constrained()->cascadeOnDelete();
-            $table->unsignedBigInteger('orderable_id');
+            $table->uuid('orderable_id');
             $table->string('orderable_type')->nullable();
             $table->enum('status', array_column(OrderStatuses::cases(), 'value'))->default(OrderStatuses::REQUESTED);
             $table->timestamps();

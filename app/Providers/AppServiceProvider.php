@@ -2,11 +2,17 @@
 
 namespace App\Providers;
 
+use App\Events\TravelApproved;
+use App\Events\TravelCancelled;
+use App\Events\TravelCreated;
 use App\Handlers\ApiHandler;
 use App\Interfaces\OrderRepositoryInterface;
 use App\Interfaces\OrderServiceInterface;
 use App\Interfaces\TravelRepositoryInterface;
 use App\Interfaces\TravelServiceInterface;
+use App\Listeners\TravelApprovedListener;
+use App\Listeners\TravelCreatedListener;
+use App\Listeners\TravelCancelledListener;
 use App\Repositories\OrderRepository;
 use App\Repositories\TravelRepository;
 use App\Services\OrderService;
@@ -34,8 +40,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Event::listen(
-            'App\Events\TravelCreated',
-            'App\Listeners\SendTravelCreatedEmail'
+            TravelCreated::class,
+            TravelCreatedListener::class
+        );
+
+        Event::listen(
+            TravelCancelled::class,
+            TravelCancelledListener::class,
+        );
+
+        Event::listen(
+            TravelApproved::class,
+            TravelApprovedListener::class,
         );
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\OrderStatuses;
+use App\Events\TravelApproved;
 use App\Events\TravelCancelled;
 use App\Events\TravelCreated;
 use App\Exceptions\TravelWithNoRequester;
@@ -129,6 +130,8 @@ readonly class TravelService implements TravelServiceInterface
         if ($travel->order->status !== OrderStatuses::REQUESTED->value) {
             throw new TravelWithNoRequester('Travel is not in an acceptable state');
         }
+
+        Event::dispatch(new TravelApproved($travel));
 
         return $this->updateTravel($id, [
             'order' => [

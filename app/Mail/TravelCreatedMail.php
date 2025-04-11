@@ -4,7 +4,6 @@ namespace App\Mail;
 
 use App\Models\Travel;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -36,10 +35,7 @@ class TravelCreatedMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            text: 'Your travel has been created successfully.',
-            with: [
-                'travel' => $this->travel,
-            ],
+            htmlString: 'Your travel to ' . $this->travel->destination . ' has been created.',
         );
     }
 }
