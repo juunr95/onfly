@@ -40,6 +40,23 @@ docker-compose up --build
 php artisan queue:work
 ```
 
+You can then access your containers using:
+
+```bash
+docker-compose exec app bash
+```
+
+And run any artisan commands or interact with the application, for example:
+
+```bash
+php artisan migrate
+```
+To seed the database, you can run:
+
+```bash
+php artisan db:seed
+```
+
 ## Environment Variables
 
 Ensure your .env file is properly set. Below is an example configuration:
