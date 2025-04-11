@@ -1,0 +1,102 @@
+### Register
+POST http://127.0.0.1:8000/api/v1/register
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "b@a.com",
+    "password": "123456",
+    "password_confirmation": "123456"
+}
+
+> {%
+    client.global.set('auth_token', response.body.access_token);
+%}
+
+### Login
+POST http://127.0.0.1:8000/api/v1/login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "b@a.com",
+    "password": "123456"
+}
+
+> {%
+    client.global.set('auth_token', response.body.access_token);
+%}
+
+### Get all Orders
+GET http://127.0.0.1:8000/api/v1/orders
+Authorization: Bearer {{ auth_token }}
+Accept: application/json
+
+### Get orders with status filter
+GET http://127.0.0.1:8000/api/v1/orders?status=requested
+Authorization: Bearer {{ auth_token }}
+Accept: application/json
+
+### Get order with date filter
+GET http://127.0.0.1:8000/api/v1/orders?createdAt=2025-04-09
+Authorization: Bearer {{ auth_token }}
+Accept: application/json
+
+### Get order by id
+GET http://127.0.0.1:8000/api/v1/orders/5bc3c88a-3849-46dc-94bc-6540b80a5784
+Authorization: Bearer {{ auth_token }}
+Accept: application/json
+
+### Create travel
+POST http://127.0.0.1:8000/api/v1/travels
+Authorization: Bearer {{ auth_token }}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "destination": "Caraguatatuba",
+    "departure_date": "2025-01-01",
+    "return_date": "2025-06-01"
+}
+
+> {%
+    client.global.set('travel_id', response.body.data.id);
+%}
+
+### List travels
+GET http://127.0.0.1:8000/api/v1/travels
+Authorization: Bearer {{ auth_token }}
+Accept: application/json
+
+### Get travel by id
+GET http://127.0.0.1:8000/api/v1/travels/f95da5d6-073a-41c9-88ed-f4623f550cc5
+Authorization: Bearer {{ auth_token }}
+Accept: application/json
+
+### Update travel
+PUT http://127.0.0.1:8000/api/v1/travels/{{ travel_id }}
+Authorization: Bearer {{ auth_token }}
+Accept: application/json
+Content-Type: application/json
+
+{
+    "destination": "Another City",
+    "order": {
+        "status": "approved"
+    }
+}
+
+### Delete a travel
+DELETE http://127.0.0.1:8000/api/v1/travels/{{ travel_id }}
+Authorization: Bearer {{ auth_token }}
+Accept: application/json
+
+### Cancel a travel
+POST http://127.0.0.1:8000/api/v1/travels/{{ travel_id }}/cancel
+Authorization: Bearer {{ auth_token }}
+Accept: application/json
+
+### Approve travel
+POST http://127.0.0.1:8000/api/v1/travels/{{ travel_id }}/approve
+Authorization: Bearer {{ auth_token }}
+Accept: application/json
