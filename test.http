@@ -54,7 +54,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "destination": "Caraguatatuba",
+    "destination": "ABC",
     "departure_date": "2025-01-01",
     "return_date": "2025-06-01"
 }
