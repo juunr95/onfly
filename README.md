@@ -34,6 +34,11 @@ docker-compose up --build
 - The PHP container uses port 9000 internally, and Nginx serves the app on port 8000.
 - MySQL is available on port 3306.
 - MailHog is available on port 8025 (web interface) and port 1025 (SMTP).
+- In order to run the queue worker, you can use the following command:
+
+```bash
+php artisan queue:work
+```
 
 ## Environment Variables
 
